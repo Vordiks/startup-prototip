@@ -1,0 +1,55 @@
+{% extends 'baseman.html' %}
+<style>
+    /* Цвета полоски слева в зависимости от статуса */
+    .border-new { border-left-color: #ff9800 !important; }      
+    .border-approved { border-left-color: #4caf50 !important; } 
+    .border-rejected { border-left-color: #f44336 !important; } 
+</style>
+{% block content %}
+<div class="container" style="max-width: 1100px;">
+    <h2 style="text-align: left;">Все заявки от всех компаний</h2>
+    <br>
+    <hr>
+
+    {% if purchases %}
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            {% for item in purchases %}
+                <div class="purchase-card border-{{ item.status }}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3 style="margin: 0; color: #333;">{{ item.title }}</h3>
+                            <span style="font-size: 14px; color: #666;">Компания: <strong>{{ item.company.name }}</strong></span>
+                        </div>
+                        <span class="status-{{ item.status }}" style="font-weight: bold; padding: 5px 10px; background-color: #f0f0f0; border-radius: 4px;">
+                            {{ item.get_status_display }}
+                        </span>
+                    </div>
+
+                    <div style="margin-top: 10px; font-size: 14px;">
+                        <p><strong>Товары:</strong> 
+                            {% for prod in item.products.all %}
+                                {{ prod.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                <a href="{{ item.link }}">Ссылка на товар</a>
+                            {% endfor %}
+                        </p>
+                        <p><strong>Кол-во:</strong> {{ item.quantity }} шт. | <strong>Сумма:</strong> {{ item.price }} ₽</p>
+                    </div>
+
+                    <!-- Кнопки управления статусом -->
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        {% if item.status != 'approved' %}
+                            <a href="{% url 'update_status' item.id 'approved' %}" style="padding: 8px 15px; background-color: #4caf50; color: white; text-decoration: none; border-radius: 4px; font-size: 14px;">Одобрить</a>
+                        {% endif %}
+                        {% if item.status != 'rejected' %}
+                            <a href="{% url 'update_status' item.id 'rejected' %}" style="padding: 8px 15px; background-color: #f44336; color: white; text-decoration: none; border-radius: 4px; font-size: 14px;">Отклонить</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Заявок пока нет.</p>
+    {% endif %}
+</div>
+{% endblock %}

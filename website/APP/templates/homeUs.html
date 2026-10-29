@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" style="max-width: 900px;">
+        <h3>Вы вошли как: {{ company.name }}</h3>
+        <hr>
+        <h2 style="text-align: left; margin-bottom: 20px;">Ваши заявки на закупку</h2>
+        
+        {% if purchases %}
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                {% for item in purchases %}
+                    <!-- Блок (карточка) заявки -->
+                    <div style="background-color: white; border-left: 5px solid rgb(12, 85, 148); padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="margin: 0; color: rgb(12, 85, 148);">{{ item.title }}</h3>
+                            <span class="status-{{ item.status }}" style="font-weight: bold; padding: 5px 10px; background-color: #b7c9e7; border-radius: 4px;">
+                                {{ item.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <p style="margin: 5px 0; color: #555; font-size: 14px;">
+                            <strong>Дата создания:</strong> {{ item.created_at|date:"d.m.Y H:i" }}
+                        </p>
+                        
+                        <div style="margin: 10px 0; padding: 10px; background-color: #f9f9f9; border-radius: 4px;">
+                            <strong>Товары:</strong>
+                            <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 20px;">
+                                {% for prod in item.products.all %}
+                                    <li>{{ prod.name }} — {{ prod.price }} ₽ <span style="color: gray; font-size: 12px;">(доставка ~{{ prod.times_cur }} дн.)</span></li>
+                                {% empty %}
+                                    <li>
+                                        {% if item.link %}
+                                            <a href="{{ item.link }}" target="_blank" style="color: blue;">Ссылка на товар</a>
+                                        {% else %}
+                                            <span style="color: gray;">Товары не указаны</span>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-top: 15px; font-weight: bold;">
+                            <span>Количество: {{ item.quantity }} шт.</span>
+                            <span style="color: rgb(12, 85, 148);">Итого: {{ item.price }} ₽</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Итоговый блок снизу -->
+            <div style="margin-top: 30px; padding: 20px; background-color: rgb(230, 235, 245); border-radius: 8px; text-align: right; border: 2px solid rgb(12, 85, 148);">
+                <h3 style="margin: 0; color: rgb(12, 85, 148);">Общая сумма всех заявок: {{ total_sum }} ₽</h3>
+            </div>
+
+        {% else %}
+        <div style="margin-top: 30px; padding: 20px; background-color: rgb(230, 235, 245); border-radius: 8px; text-align: right; border: 2px solid rgb(12, 85, 148);">
+    <h4 style="margin: 0; color: #666;">Одобрено на: {{ approved_sum }} ₽</h4>
+    <h4 style="margin: 5px 0; color: #666;">На рассмотрении: {{ new_sum }} ₽</h4>
+    <h3 style="margin: 10px 0 0 0; color: rgb(12, 85, 148);">Общая сумма всех заявок: {{ total_sum }} ₽</h3>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

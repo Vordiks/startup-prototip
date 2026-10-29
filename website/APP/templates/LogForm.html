@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/model-form.css" %}">
+    <title>Авторизация</title>
+</head>
+<body>
+    
+    
+    <form action="{% url 'login_form' %}" method="post">
+        <h1>Торговый дом</h1>
+        <h3 style="font-style: italic; color: rgb(146, 167, 223);">Holding group</h3>
+        <br>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Войти">
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель менеджера | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- Добавляем немного стилей прямо сюда, чтобы сайдбар выглядел аккуратно -->
+    <style>
+        /* Стили для ссылок в боковом меню */
+        .sidebar ul { padding: 0; margin: 0; list-style: none; }
+        .sidebar li { margin-bottom: 10px; }
+        
+        /* Делаем ссылки блочными, чтобы они красиво выделялись при наведении */
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-weight: normal;
+        }
+        
+        /* Эффект при наведении */
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+        }
+
+        /* Выделяем активные ссылки цветом (по желанию) */
+        .sidebar a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Торговый дом <span style="font-size: 16px; font-weight: normal; font-style: italic; color: #a0c4ff;">(Режим менеджера)</span></h1>
+    </header>
+
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <!-- Убираем инлайн-стили, теперь они управляются через CSS выше -->
+                <li><a href="{% url 'manager_home' %}">Новые заявки</a></li>
+                <li><a href="{% url 'approved_purchases' %}">Одобренные заявки</a></li>
+                <li><a href="{% url 'rejected_purchases' %}">Отклоненные заявки</a></li>
+                <li><a href="{% url 'manager_summary' %}">Смета по компаниям</a></li>
+                
+                <hr style="border-color: rgba(255,255,255,0.2); margin: 20px 0;">
+                
+                <!-- Кнопка выхода (если захочешь добавить логику выхода) -->
+                <li><a href="{% url 'login_form' %}" style="color: #ffb3b3;">Выйти на главную</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p> &copy; 2026 My Website | Панель менеджера</p>
+    </footer>
+</body>
+</html>

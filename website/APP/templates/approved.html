@@ -1,0 +1,41 @@
+{% extends 'baseman.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 1100px;">
+    <h2 style="text-align: left; color: #4caf50;">Одобренные заявки</h2>
+    <a href="{% url 'manager_home' %}" style="display: inline-block; margin-bottom: 20px; color: #666; text-decoration: none;">← Вернуться на панель</a>
+    
+    <hr>
+
+    {% if purchases %}
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            {% for item in purchases %}
+                <div class="purchase-card border-approved">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3 style="margin: 0; color: #333;">{{ item.title }}</h3>
+                            <span style="font-size: 14px; color: #666;">Компания: <strong>{{ item.company.name }}</strong></span>
+                        </div>
+                        <span style="font-weight: bold; padding: 5px 10px; background-color: #e8f5e9; color: #4caf50; border-radius: 4px;">
+                            {{ item.get_status_display }}
+                        </span>
+                    </div>
+
+                    <div style="margin-top: 10px; font-size: 14px;">
+                        <p><strong>Товары:</strong> 
+                            {% for prod in item.products.all %}
+                                {{ prod.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                <a href="{{ item.link }}">Ссылка на товар</a>
+                            {% endfor %}
+                        </p>
+                        <p><strong>Кол-во:</strong> {{ item.quantity }} шт. | <strong>Сумма:</strong> {{ item.price }} ₽</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Одобренных заявок пока нет.</p>
+    {% endif %}
+</div>
+{% endblock %}

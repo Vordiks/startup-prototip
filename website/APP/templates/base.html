@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href = "" >{{ company.name }}</a></li>
+                <li><a href = "">О нас</a></li>
+                <li><a href = "">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <aside class = "sidebar">
+        <nav>
+            <ul>
+                <li><a href = "{% url 'create_purchase' %}" >Создать заявку</a></li>
+                <li><a href="{% url 'homeUs' %}">Заявки</a></li>
+                <li><a href = "{% url 'company_summary' %}" >Смета</a></li>
+            </ul>
+        </nav>
+
+    </aside>
+    
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <p> &copy; 2026 My Website</p>
+    </footer>
+</body>
+</html>

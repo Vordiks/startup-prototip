@@ -1,0 +1,137 @@
+/*Стилизация верхней рамки окна*/
+header {
+    position: fixed;   /* приклеен к окну */
+    top: 0;            /* к верхнему краю */
+    left: 0;           /* от левого края */
+    right: 0;          /* до правого края (растянут) */
+    height: 60px;      /* высота */
+    z-index: 1000;     /* поверх остальных блоков */
+    background-color:rgb(13, 16, 168);
+    color: rgb(243, 243, 243);
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 10px;
+    
+}
+
+
+header h1{
+    margin: 0;
+    color: white;
+}
+
+/*Панель навигации с кнопками*/
+nav ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+}
+h1 {
+    text-align:center;
+    color:rgb(6, 6, 6);
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgb(248, 250, 250);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 35px;
+}
+img {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    color:rgb(142, 142, 142);
+    line-height: 1.6;
+}
+
+main {
+    padding: 20px;
+    margin-left: 120px;   /* освободить место под сайдбар */
+    padding-top: 80px;    /* сдвинуть под хедер (60px + запас) */
+    flex: 1;   /* растягивает main на всё свободное место, прижимая футер вниз */
+}
+
+footer {
+    background-color:rgb(13, 16, 168);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.status-new { color: blue; }
+.status-approved { color: green; }
+.status-rejected { color: red; }
+/* --- СТИЛИ ДЛЯ БОКОВОГО МЕНЮ (САЙДБАРА) --- */
+.sidebar {
+    position: fixed;
+    top: 60px;          
+    left: 0;
+    bottom: 0;
+    width: 200px; /* Сделал чуть шире, чтобы текст помещался */
+    background-color: rgb(57, 99, 185); /* Твой синий цвет */
+    padding: 20px 10px;                
+    color: white;                 
+    border-right: 2px solid rgb(13, 16, 168); 
+    box-sizing: border-box;
+}
+
+/* Убираем точки у списка и сбрасываем отступы */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Отступ между кнопками меню */
+.sidebar li {
+    margin-bottom: 8px;
+}
+
+/* Стили для самих ссылок */
+.sidebar a {
+    display: block;               /* Ссылка растягивается на всю ширину */
+    color: white;                 /* Белый текст */
+    text-decoration: none;        /* Убираем подчеркивание */
+    padding: 12px 15px;           /* Внутренние отступы (делает кнопку объемной) */
+    border-radius: 6px;           /* Закругляем углы */
+    font-size: 16px;
+    transition: background-color 0.2s; /* Плавная смена цвета при наведении */
+}
+
+/* Эффект при наведении мышки */
+.sidebar a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
+    text-decoration: none;        /* На всякий случай убираем подчеркивание */
+}
+
+/* Если захочешь выделить текущую страницу (активную ссылку) */
+.sidebar a.active {
+    background-color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;}

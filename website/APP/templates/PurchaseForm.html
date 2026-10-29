@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/model-purchaseform.css" %}">
+    <title>Подача заявки</title>
+</head>
+<body>
+    <form action="{% url 'create_purchase' %}" method="post">
+    <h1>Новая заявка</h1>
+    <h3 style="color: rgb(12, 85, 148);">Заявка от: {{ company.name }}</h3>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Отправить">
+
+    <a style="color: blue;" href="{% url 'homeUs' %}">← Назад</a>
+    
+</body>
+</html>
+
+
+
+
